@@ -1,5 +1,50 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Checker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Check Stock Information</h1>
+        
+        <!-- Language Selection -->
+        <div class="language">
+            <button onclick="changeLanguage('en')">English</button>
+            <button onclick="changeLanguage('ar')">العربية</button>
+        </div>
 
-{% block content %}
-    <!-- Content from base template is inherited here -->
-{% endblock %}
+        <!-- Stock Input Form -->
+        <form method="POST" action="/">
+            <input type="text" name="symbol" placeholder="Enter Stock Symbol" required>
+            <button type="submit">Check Stock</button>
+        </form>
+
+        {% if stock_info %}
+            <div class="stock-info">
+                <h2>Stock Information</h2>
+                <p><strong>Symbol:</strong> {{ stock_info['Symbol'] }}</p>
+                <p><strong>Open Price:</strong> ${{ stock_info['Open'] }}</p>
+                <p><strong>Close Price:</strong> ${{ stock_info['Close'] }}</p>
+                <p><strong>High Price:</strong> ${{ stock_info['High'] }}</p>
+                <p><strong>Low Price:</strong> ${{ stock_info['Low'] }}</p>
+                <p><strong>Volume:</strong> {{ stock_info['Volume'] }}</p>
+            </div>
+        {% endif %}
+    </div>
+
+    <script>
+        function changeLanguage(language) {
+            if (language === 'ar') {
+                document.documentElement.lang = 'ar';
+                document.body.style.direction = 'rtl';
+            } else {
+                document.documentElement.lang = 'en';
+                document.body.style.direction = 'ltr';
+            }
+        }
+    </script>
+</body>
+</html>
