@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="{{ get_locale() }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ _('Stock Data Visualization') }}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body dir="{{ 'rtl' if get_locale() == 'ar' else 'ltr' }}">
+
+    <!-- Language switch buttons -->
+    <div style="text-align: right; padding: 10px;">
+        <a href="/?lang=en"><button>{{ _('English') }}</button></a>
+        <a href="/?lang=ar"><button>{{ _('عربي') }}</button></a>
+    </div>
+
+    <header>
+        <h1>{{ _('Enter Stock Symbol') }}</h1>
+    </header>
+
+    <main>
+        <!-- Stock Symbol Input Form -->
+        <form method="POST">
+            <label for="stock_symbol">{{ _('Stock Ticker') }}:</label>
+            <input type="text" id="stock_symbol" name="stock_symbol" required>
+            <button type="submit">{{ _('Generate Chart') }}</button>
+        </form>
+
+        {% if plot_path %}
+            <h2>{{ _('Stock Plot') }}</h2>
+            <img src="{{ plot_path }}" alt="{{ _('Stock Plot') }}">
+        {% endif %}
+    </main>
+
+</body>
+</html>
